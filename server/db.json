@@ -1,0 +1,16 @@
+{
+  "tasks": [
+    {
+      "error": false,
+      "data": [
+        {
+          "id": 1,
+          "title": "Learn JS",
+          "description": "Easy Peasy",
+          "status": "open",
+          "addedDate": "2023-07-06T10:51:32.000Z"
+        }
+      ]
+    }
+  ]
+}
