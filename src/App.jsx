@@ -1,31 +1,37 @@
 import './App.css'
 import {useEffect, useState} from "react";
-import {deleteTaskAPI, getAllTasks, sendTaskData} from "./helpers/api.js";
+import {deleteTaskAPI, getDataAPI, sendDataAPI} from "./helpers/api.js";
+import AddOperation from "./components/addOperation.jsx";
 
 function App() {
     const [tasks, setTasks] = useState([]);
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
+    const [operationId, setOperationId] = useState(null);
 
     useEffect(() => {
-        getAllTasks()
-            .then((data) => {
-                setTasks(data)
-            })
+        const data = Promise.all([getDataAPI('tasks'), getDataAPI('operations')])
+        data.then((results) => {
+            const [taskData, operationData] = results;
+            const tasks = taskData.map((task) => ({
+                ...task,
+                operations: operationData.filter((operation) => operation.taskId === task.id)
+            }))
+            setTasks(tasks);
+        })
             .catch(console.error)
     }, [])
 
 
     async function handleSubmit(event) {
         event.preventDefault();
-        const result = await sendTaskData({
+        const result = await sendDataAPI({
             title, description, status: 'open', addedDate: new Date()
-        });
+        }, 'tasks');
         setTitle('');
         setDescription('');
         setTasks([...tasks, result])
     }
-
 
 
     async function handleDeleteTask(event) {
@@ -52,7 +58,7 @@ function App() {
                     />
                 </div>
                 <div>
-                    <label htmlFor="desc">Desription</label>
+                    <label htmlFor="desc">Description</label>
                     <textarea
                         value={description}
                         id="desc"
@@ -68,10 +74,27 @@ function App() {
                 {tasks.map((task) => (
                     <div key={task.id}>
                         <span>{task.title}</span> - <span>{task.description}</span>
-                        <button>Add operation</button>
+                        {operationId === task.id ? (
+                            <AddOperation
+                                setOperationId={setOperationId}
+                                taskId={task.id}
+                                setTasks={setTasks}
+                            />
+                        ) : (
+                            <button onClick={() => setOperationId(task.id)}>
+                                Add operation</button>)}
+
                         <button>Finish</button>
                         <button onClick={handleDeleteTask} data-id={task.id}>Delete</button>
 
+                        <div>
+                            {task.operations && task.operations.map((operation) => (
+                                <div key={operation.id}>
+
+                                    <span>{operation.description}: </span><b>{operation.timeSpent}</b>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 ))}
             </section>

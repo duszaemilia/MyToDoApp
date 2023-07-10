@@ -6,6 +6,43 @@
       "description": "Easy Peasy",
       "status": "open",
       "addedDate": "2023-07-06T10:51:32.000Z"
+    },
+    {
+      "title": "wwww",
+      "description": "ww",
+      "status": "open",
+      "addedDate": "2023-07-10T14:09:39.268Z",
+      "id": 2
+    },
+    {
+      "title": "html for everyone",
+      "description": "language witout errors",
+      "status": "open",
+      "addedDate": "2023-07-10T14:20:17.803Z",
+      "id": 3
+    }
+  ],
+  "operations": [
+    {
+      "description": "class",
+      "timeSpent": 0,
+      "addedDate": "2023-07-10T20:26:43.605Z",
+      "taskId": 1,
+      "id": 1
+    },
+    {
+      "description": "class",
+      "timeSpent": 0,
+      "addedDate": "2023-07-10T20:26:48.787Z",
+      "taskId": 1,
+      "id": 2
+    },
+    {
+      "description": "practise",
+      "timeSpent": 0,
+      "addedDate": "2023-07-10T20:41:48.771Z",
+      "taskId": 2,
+      "id": 3
     }
   ]
 }

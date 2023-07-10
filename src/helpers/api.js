@@ -1,11 +1,11 @@
-export async function getAllTasks() {
-    const response = await fetch ('http://localhost:3000/tasks');
+export async function getDataAPI(endpoint) {
+    const response = await fetch (`http://localhost:3000/${endpoint}`);
     return response.json()
 }
 
-export async function sendTaskData(data) {
+export async function sendDataAPI(data, endpoint) {
     const response = await fetch(
-        'http://localhost:3000/tasks',
+        `http://localhost:3000/${endpoint}`,
         {
             headers: {
                 'Content-Type': 'application/json'
