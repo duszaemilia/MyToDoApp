@@ -1,6 +1,6 @@
 import './App.css'
 import {useEffect, useState} from "react";
-import {getAllTasks, sendTaskData} from "./helpers/api.js";
+import {deleteTaskAPI, getAllTasks, sendTaskData} from "./helpers/api.js";
 
 function App() {
     const [tasks, setTasks] = useState([]);
@@ -24,6 +24,16 @@ function App() {
         setTitle('');
         setDescription('');
         setTasks([...tasks, result])
+    }
+
+
+
+    async function handleDeleteTask(event) {
+        const id = +event.target.dataset.id
+        await deleteTaskAPI(id);
+        setTasks(tasks.filter((task) => task.id !== id));
+
+
     }
 
     return (
@@ -60,7 +70,7 @@ function App() {
                         <span>{task.title}</span> - <span>{task.description}</span>
                         <button>Add operation</button>
                         <button>Finish</button>
-                        <button>Delete</button>
+                        <button onClick={handleDeleteTask} data-id={task.id}>Delete</button>
 
                     </div>
                 ))}
